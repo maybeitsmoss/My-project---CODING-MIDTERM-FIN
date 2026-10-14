@@ -2,6 +2,7 @@
 ---
 <<declare $dialogPhase = "">>
 <<declare $visitedYet = false>>
+<<declare $allDone = false>>
 
 <<dialogPhaseSetter NPC>>
 <<if $dialogPhase == "start">>
@@ -19,7 +20,6 @@
 
 title: cake_Start
 ---
-<<set $visitedYet to true>>
 <<cam_move NPC_Cam_Rig "npc">>
 <color=red>RED</color>: Hey roomie!
 <color=red>RED</color>: How were classes today?
@@ -60,6 +60,7 @@ title: cake_Start
 <<dialogPhaseGetter NPC "quest_taken">>
 <<cam_move NPC_Cam_Rig "return">>
 <<hide_cursor NPC>>
+<<set $visitedYet to true>>
 
 ===
 
@@ -74,13 +75,17 @@ title: cake_quest_taken_return
         <color=red>RED</color>: Once we have all the ingredients, we'll just mix them up and pop it in the oven.
         <color=red>RED</color>: 15 minutes at 800 degrees should do the trick!
         <<cam_move NPC_Cam_Rig "return">>
+        <<hide_cursor NPC>>
    
 ===
 
 title: cake_quest_complete
 ---
-<<if $visitedYet == false>>
-    <<set $visitedYet to true>>
+<<if $allDone == true>>
+    <<jump cake_quest_complete_return>>
+<<endif>>
+
+<<if $visitedYet != false>>
     <<cam_move NPC_Cam_Rig "npc">>
     <color=red>RED</color>: Oh! Hey roomie!
     <color=red>RED</color>: How did you know I needed these?
@@ -94,19 +99,27 @@ title: cake_quest_complete
     <<dialogPhaseGetter NPC "quest_complete_return">>
     <<cam_move NPC_Cam_Rig "return">>
 <<else>>
+    <<cam_move NPC_Cam_Rig "npc">>
     <color=red>RED</color>: Awesome! You got the ingredients!
     <color=red>RED</color>: Just in time, too.
     <color=red>RED</color>: I'll get started on this right away! This should be the best party ever.
     <color=red>RED</color>: Thanks so much for your help!
+    <<set $allDone to true>>
 <<endif>>
+<<cam_move NPC_Cam_Rig "return">>
+<<hide_cursor NPC>>
+
 
 ===
 
 title: cake_quest_complete_return
 ---
+<<cam_move NPC_Cam_Rig "npc">>
 <color=red>RED</color>: Uhhhh...
 <color=red>RED</color>: I think we're all done here.
 <color=red>RED</color>: You're acting.....
 <color=red>RED</color>: .......
 <color=red>RED</color>: ...sus..
+<<cam_move NPC_Cam_Rig "return">>
+<<hide_cursor NPC>>
 ===
