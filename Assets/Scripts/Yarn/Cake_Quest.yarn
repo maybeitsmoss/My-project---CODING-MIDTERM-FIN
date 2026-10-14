@@ -1,0 +1,112 @@
+﻿title: Cake_Quest
+---
+<<declare $dialogPhase = "">>
+<<declare $visitedYet = false>>
+
+<<dialogPhaseSetter NPC>>
+<<if $dialogPhase == "start">>
+    <<jump cake_Start>>
+<<elseif $dialogPhase == "quest_taken">>
+    <<jump cake_quest_taken_return>>
+<<elseif $dialogPhase == "quest_complete">>
+    <<jump cake_quest_complete>>
+<<elseif $dialogPhase == "quest_complete_return">>
+    <<jump cake_quest_complete_return>>
+<<else>>
+    <color=red>RED</color>: I don't know what to do. This is a debug message.
+<<endif>>
+===
+
+title: cake_Start
+---
+<<set $visitedYet to true>>
+<<cam_move NPC_Cam_Rig "npc">>
+<color=red>RED</color>: Hey roomie!
+<color=red>RED</color>: How were classes today?
+<<cam_move NPC_Cam_Rig "pc">>
+    ->They were great!
+        <<cam_move NPC_Cam_Rig "npc">>
+        <color=red>RED</color>: Great! Glad to hear.
+        <color=red>RED</color>: Mine sucked.
+    ->They were just okay.
+        <<cam_move NPC_Cam_Rig "npc">>
+        <color=red>RED</color>: Just okay is better than bad!
+        <color=red>RED</color>: Mine sucked.
+    ->I hate this school.
+        <<cam_move NPC_Cam_Rig "npc">>
+        <color=red>RED</color>: Oh!
+        <color=red>RED</color>: Well, happy you're here.
+<<cam_move NPC_Cam_Rig "npc">>
+<color=red>RED</color>: Oh! By the way...
+<color=red>RED</color>: It's Josh's birthday today.
+<color=red>RED</color>: You remember Josh?
+<color=red>RED</color>: Our other roomate who lives with us?
+    <<cam_move NPC_Cam_Rig "pc">>
+    ->Oh yeah, I remember Josh, the third person who lives in this suite.
+<<cam_move NPC_Cam_Rig "npc">>
+<color=red>RED</color>: Exactly!
+<color=red>RED</color>: Well, I'm planning a <i> surprise birthday party </i> for him!
+<color=red>RED</color>: I'm working on decorations, I just need <i> your </i> help with the cake!
+<color=red>RED</color>: I dont have any of the ingredients.
+<color=red>RED</color>: You should be able to find them scattered around the hallway.
+<<cam_move NPC_Cam_Rig "pc">>
+    ->Scattered in the halls? Cake ingredients??
+        <<cam_move NPC_Cam_Rig "npc">>
+        <color=red>RED</color>: Yeah! You'll see them laying around.
+    ->Sounds great!
+        <<cam_move NPC_Cam_Rig "npc">>
+        <color=red>RED</color>: Great! I knew I could count on you!
+<color=red>RED</color>: Good luck roomie! Be quick!
+<<dialogPhaseGetter NPC "quest_taken">>
+<<cam_move NPC_Cam_Rig "return">>
+<<hide_cursor NPC>>
+
+===
+
+title: cake_quest_taken_return
+---
+<<cam_move NPC_Cam_Rig "npc">>
+<color=red>RED</color>: Hey roomie! How's the cake search going?
+<<cam_move NPC_Cam_Rig "pc">>
+    ->Great!
+        <<cam_move NPC_Cam_Rig "npc">>
+        <color=red>RED</color>: Awesome! Back to it! Josh will be home soon.
+        <color=red>RED</color>: Once we have all the ingredients, we'll just mix them up and pop it in the oven.
+        <color=red>RED</color>: 15 minutes at 800 degrees should do the trick!
+        <<cam_move NPC_Cam_Rig "return">>
+   
+===
+
+title: cake_quest_complete
+---
+<<if $visitedYet == false>>
+    <<set $visitedYet to true>>
+    <<cam_move NPC_Cam_Rig "npc">>
+    <color=red>RED</color>: Oh! Hey roomie!
+    <color=red>RED</color>: How did you know I needed these?
+    <color=red>RED</color>: Did someone tell you about the suprise party? For our third roomate Josh?
+    <color=red>RED</color>: It's almost like you knew somehow to get them for me.
+    <color=red>RED</color>: Like, maybe you've already done this, and now you're doing it again.
+    <color=red>RED</color>: You were supposed to talk to me, learn about my quest, accept my quest, go on the quest, return from the quest, and then give me the items.
+    <color=red>RED</color>: Just like how every other game works.
+    <color=red>RED</color>: Was this experience not good enough for you?
+    <color=red>RED</color>: Anyway, suuuupes excited for the party!
+    <<dialogPhaseGetter NPC "quest_complete_return">>
+    <<cam_move NPC_Cam_Rig "return">>
+<<else>>
+    <color=red>RED</color>: Awesome! You got the ingredients!
+    <color=red>RED</color>: Just in time, too.
+    <color=red>RED</color>: I'll get started on this right away! This should be the best party ever.
+    <color=red>RED</color>: Thanks so much for your help!
+<<endif>>
+
+===
+
+title: cake_quest_complete_return
+---
+<color=red>RED</color>: Uhhhh...
+<color=red>RED</color>: I think we're all done here.
+<color=red>RED</color>: You're acting.....
+<color=red>RED</color>: .......
+<color=red>RED</color>: ...sus..
+===
